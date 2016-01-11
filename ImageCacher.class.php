@@ -17,7 +17,7 @@ class ImageCacher
         $this->cacheDataFile = $this->path.'/imagecacher-data';
     }
 
-    private function dowloadImage($imgURL, $nameWithPath, $remoteImgDate)
+    private function downloadImage($imgURL, $nameWithPath, $remoteImgDate)
     {
         $ch = curl_init($imgURL);
         $fp = fopen($nameWithPath, 'wb');
@@ -61,10 +61,10 @@ class ImageCacher
             $remoteImgDate = $this->getRemoteFileModificationDate($imgURL);
             $cachedImgDate  = filemtime($nameWithPath);
             if ($cachedImgDate != $remoteImgDate)
-                $this->dowloadImage($imgURL, $nameWithPath, $remoteImgDate);
+                $this->downloadImage($imgURL, $nameWithPath, $remoteImgDate);
             return $this->rootURL.'/'.$nameWithPath;
         }
-        $this->dowloadImage($imgURL, $nameWithPath, $this->getRemoteFileModificationDate($imgURL));
+        $this->downloadImage($imgURL, $nameWithPath, $this->getRemoteFileModificationDate($imgURL));
         return $this->rootURL.'/'.$nameWithPath;
     }
 
